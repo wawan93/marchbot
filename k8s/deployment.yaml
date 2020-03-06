@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marchbot
+spec:
+  selector:
+    matchLabels:
+      app: marchbot
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: marchbot
+    spec:
+      containers:
+        - image: registry.wawan.pro/wawan93/marchbot
+          name: marchbot
+          command: ['./bot']
+          env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: marchbot
+                  key: token
+      imagePullSecrets:
+        - name: registry.wawan.pro
+ 
